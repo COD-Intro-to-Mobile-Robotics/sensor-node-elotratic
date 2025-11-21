@@ -1,6 +1,6 @@
 import rclpy                    # import the ROS Client Library for Python (RCLPY)
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
-from std_msgs.msg import Int32 # from standard messages, import the Int32 message
+from std_msgs.msg import Int16 # from standard messages, import the Int16 message
 
 
 class ListenerNode(Node):  # Create a new class called ListenerNode that inherits variables and functions from Node
@@ -8,15 +8,16 @@ class ListenerNode(Node):  # Create a new class called ListenerNode that inherit
     def __init__(self):
         super().__init__('listener_node')          # Initialize the Node with the name 'listener_node'
         self.subscription = self.create_subscription(   # Create a subscription to receive messages
-            Int32,                                     # The message type to subscribe to Int32
-            'ir_sensor_data',
-            ##'param_topic',  #maybe revise                              # The name of the topic to subscribe to
+            Int16,                                     # The message type to subscribe to Int16
+            'ir_sensor_data',                             # The name of the topic to subscribe to
             self.listener_callback,                     # Callback function to handle incoming messages
             10)                                         # Queue size for incoming messages
         self.subscription                               # Prevent an 'unused variable' warning by referencing the subscription
 
     def listener_callback(self, msg):                       # Callback method to process received messages
-        self.get_logger().info('I heard: "%s"' % msg.data)  # Log the received message
+        sensor_state = msg.data
+        state_str = 'OBSTACLE DETECTED' if sensor_state == 1 else 'CLEAR'
+        self.get_logger().info(f'Sensor state: {sensor_state} ({state_str})')  # Log the received message
 
 
 def main(args=None):
