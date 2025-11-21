@@ -1,6 +1,6 @@
 import rclpy                    # import the ROS Client Library for Python (RCLPY)
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
-from std_msgs.msg import String # from standard messages, import the String message
+from std_msgs.msg import Int32 # from standard messages, import the Int32 message
 
 
 class ListenerNode(Node):  # Create a new class called ListenerNode that inherits variables and functions from Node
@@ -8,8 +8,9 @@ class ListenerNode(Node):  # Create a new class called ListenerNode that inherit
     def __init__(self):
         super().__init__('listener_node')          # Initialize the Node with the name 'listener_node'
         self.subscription = self.create_subscription(   # Create a subscription to receive messages
-            String,                                     # The message type to subscribe to
-            'param_topic',                                 # The name of the topic to subscribe to
+            Int32,                                     # The message type to subscribe to Int32
+            'ir_sensor_data',
+            ##'param_topic',  #maybe revise                              # The name of the topic to subscribe to
             self.listener_callback,                     # Callback function to handle incoming messages
             10)                                         # Queue size for incoming messages
         self.subscription                               # Prevent an 'unused variable' warning by referencing the subscription
