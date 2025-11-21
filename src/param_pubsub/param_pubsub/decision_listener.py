@@ -3,10 +3,10 @@ from rclpy.node import Node     # from RCLPY, import the Node Class used to crea
 from std_msgs.msg import String # from standard messages, import the String message
 
 
-class MinimalSubscriber(Node):  # Create a new class called MinimalSubscriber that inherits variables and functions from Node
+class DecisionListener(Node):  # Create a new class called DecisionListener that inherits variables and functions from Node
 
     def __init__(self):
-        super().__init__('minimal_subscriber')          # Initialize the Node with the name 'minimal_subscriber'
+        super().__init__('decision_subscriber')          # Initialize the Node with the name 'decision_subscriber'
         self.subscription = self.create_subscription(   # Create a subscription to receive messages
             String,                                     # The message type to subscribe to
             'param_topic',                                 # The name of the topic to subscribe to
@@ -22,10 +22,10 @@ def main(args=None):
     print ("Beginning to listen...")            # Print a starting message
     rclpy.init(args=args)                       # Initialize the ROS 2 Python client library
 
-    minimal_subscriber = MinimalSubscriber()    # Create an instance of the MinimalSubscriber class
+    decision_subscriber = DecisionListener()    # Create an instance of the DecisionListener class
 
     try:
-        rclpy.spin(minimal_subscriber)          # Keep the node active and process incoming messages until interrupted
+        rclpy.spin(decision_subscriber)          # Keep the node active and process incoming messages until interrupted
 
     except KeyboardInterrupt:   # Handle a keyboard interrupt (Ctrl+C)
         print("\n")             # Print a newline for better format
@@ -35,7 +35,7 @@ def main(args=None):
         # Destroy the node explicitly
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
-        minimal_subscriber.destroy_node()
+        decision_subscriber.destroy_node()
         if rclpy.ok():                      # Check if the rclpy library is still running
             rclpy.shutdown()                # Shut down the ROS 2 client library, cleanly terminating the node
 
