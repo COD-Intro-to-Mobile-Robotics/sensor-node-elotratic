@@ -23,6 +23,7 @@ setup(
                 'talker = param_pubsub.param_publisher:main',
                 'listener = param_pubsub.param_subscriber:main',
                 'sensor_node = param_pubsub.sensor_node:main',
+                'listener_node = param_pubsub.listener_node:main',
 
         ],
 },
