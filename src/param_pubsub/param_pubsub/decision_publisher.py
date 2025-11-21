@@ -17,17 +17,18 @@ class DecisionPublisher(Node):   # Create a new class called DecisionPublisher t
         #self.declare_parameter('my_parameter', 'Hi')                        # Instantiate parameter, set default value to 'Hi'
         #imer_period = 0.5                                                  # Define the timer period in seconds
         #self.timer = self.create_timer(timer_period, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
-        self.create_timer(1.0, self.publish_command)  # Create a timer that calls 'timer_callback' every 1 second
-        self.publish_command = ["FORWARD", "LEFT", "RIGHT", "STOP"]
+        self.commands = ["FORWARD", "LEFT", "RIGHT", "STOP"]
+
         self.current_index = 0
+        self.create_timer(1.0, self.publish_command)  # Create a timer that calls 'timer_callback' every 1 second
 
     def publish_command(self):
         #my_param = self.get_parameter('my_parameter').get_parameter_value().string_value
         msg = String()                                          # Create a new String message
-        msg.data = self.publish_command[self.current_index]    # set msg.data to have the value of my_param
+        msg.data = self.commands[self.current_index]    # set msg.data to have the value of my_param
         self.publisher_.publish(msg)                            # Publish the message to the topic
         self.get_logger().info(f'Published command: {msg.data}')   # Log the published message for debugging
-        self.current_index = (self.current_index + 1) % len(self.publish_command)
+        self.current_index = (self.current_index + 1) % len(self.commands)
 
 def main(args=None):
     print ("Beginning to talk...")          # Print a starting message

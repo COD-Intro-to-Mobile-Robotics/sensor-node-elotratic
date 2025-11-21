@@ -9,14 +9,14 @@ class DecisionListener(Node):  # Create a new class called DecisionListener that
         super().__init__('decision_subscriber')          # Initialize the Node with the name 'decision_subscriber'
         self.subscription = self.create_subscription(   # Create a subscription to receive messages
             String,                                     # The message type to subscribe to
-            'param_topic',                                 # The name of the topic to subscribe to
+            'robot_decision',                                 # The name of the topic to subscribe to
             self.listener_callback,                     # Callback function to handle incoming messages
             10)                                         # Queue size for incoming messages
         self.subscription                               # Prevent an 'unused variable' warning by referencing the subscription
 
     def listener_callback(self, msg):                       # Callback method to process received messages
-        self.get_logger().info('I heard: "%s"' % msg.data)  # Log the received message
-
+        self.get_logger().info(f'I heard: {msg.data}')  # Log the received message
+#switched this only
 
 def main(args=None):
     print ("Beginning to listen...")            # Print a starting message
