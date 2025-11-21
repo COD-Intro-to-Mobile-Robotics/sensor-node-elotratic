@@ -1,12 +1,12 @@
 import rclpy                    # import the ROS Client Library for Python (RCLPY)
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
 from std_msgs.msg import Int16 # from standard messages, import the Int16 message
-
-import os
-include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
-import sys
-sys.path.append(include_dir)
-from hat_library import *
+import RPi.GPIO as GPIO  # Import the Raspberry Pi GPIO library
+#import os
+#include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
+#import sys
+#sys.path.append(include_dir)
+#from hat_library import *
 
 class SensorNode(Node):   # Create a new class called SensorNode that inherits variables & functions from Node
 
