@@ -8,10 +8,10 @@ import sys
 sys.path.append(include_dir)
 from hat_library import *
 
-class MinimalPublisher(Node):   # Create a new class called MinimalPublisher that inherits variables & functions from Node
+class SensorNode(Node):   # Create a new class called SensorNode that inherits variables & functions from Node
 
     def __init__(self):
-        super().__init__('minimal_publisher')                               # Initialize the Node with the name 'minimal_publisher'
+        super().__init__('sensor_node')                               # Initialize the Node with the name 'sensor_node'
         self.publisher_ = self.create_publisher(String, 'param_topic', 10)  # Create a publisher for String type messages on the topic 'my_topic'
         self.declare_parameter('my_parameter', 'Hi')                        # Instantiate parameter, set default value to 'Hi'
         timer_period = 0.5                                                  # Define the timer period in seconds
@@ -29,10 +29,10 @@ def main(args=None):
     print ("Beginning to talk...")          # Print a starting message
     rclpy.init(args=args)                   # Initialize the ROS 2 Python client library
 
-    minimal_publisher = MinimalPublisher()  # Create an instance of the MinimalPublisher class
+    sensor_node = SensorNode()  # Create an instance of the SensorNode class
 
     try:
-        rclpy.spin(minimal_publisher)       # Keep the node active and processing callbacks until interrupted
+        rclpy.spin(sensor_node)       # Keep the node active and processing callbacks until interrupted
 
     except KeyboardInterrupt:   # Handle a keyboard interrupt (Ctrl+C)
         print("\n")             # Print a newline for better format
@@ -42,7 +42,7 @@ def main(args=None):
         # Destroy the node explicitly
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
-        minimal_publisher.destroy_node()
+        sensor_node.destroy_node()
         if rclpy.ok():                      # Check if the rclpy library is still running
             rclpy.shutdown()                # Shut down the ROS 2 client library, cleanly terminating the node
 
