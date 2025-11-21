@@ -23,8 +23,9 @@ setup(
                 'talker = param_pubsub.param_publisher:main',
                 'listener = param_pubsub.param_subscriber:main',
                 'sensor_node = param_pubsub.sensor_node:main',
-                'listener_node = param_pubsub.listener_node:main',
                 'sensor_controller = param_pubsub.sensor_controller:main',
+                'decision_listener = param_pubsub.decision_listener:main',
+                'decision_publisher = param_pubsub.decision_publisher:main',
 
         ],
 },
