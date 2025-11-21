@@ -1,6 +1,6 @@
 import rclpy                    # import the ROS Client Library for Python (RCLPY)
 from rclpy.node import Node     # from RCLPY, import the Node Class used to create ROS 2 nodes
-from std_msgs.msg import String # from standard messages, import the String message
+from std_msgs.msg import Int32 # from standard messages, import the Int32 message
 
 import os
 include_dir = os.path.dirname(os.path.realpath(__file__)) + "/../../../../../../src/include/"
@@ -12,14 +12,14 @@ class SensorNode(Node):   # Create a new class called SensorNode that inherits v
 
     def __init__(self):
         super().__init__('sensor_node')                               # Initialize the Node with the name 'sensor_node'
-        self.publisher_ = self.create_publisher(String, 'param_topic', 10)  # Create a publisher for String type messages on the topic 'my_topic'
-        self.declare_parameter('my_parameter', 'Hi')                        # Instantiate parameter, set default value to 'Hi'
+        self.publisher_ = self.create_publisher(Int32, 'param_topic', 10)  # Create a publisher for String type messages on the topic 'my_topic'
+        self.declare_parameter('my_parameter', 42)                        # Instantiate parameter, set default value to interger
         timer_period = 0.5                                                  # Define the timer period in seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)   # Create a timer that calls 'timer_callback' every 0.5 seconds
 
     def timer_callback(self):
-        my_param = self.get_parameter('my_parameter').get_parameter_value().string_value
-        msg = String()                                          # Create a new String message
+        my_param = self.get_parameter('my_parameter').get_parameter_value().integer_value
+        msg = Int32()                                          # Create a new Int32 message
         msg.data = my_param                                     # set msg.data to have the value of my_param
         self.publisher_.publish(msg)                            # Publish the message to the topic
         self.get_logger().info('Publishing: "%s"' % msg.data)   # Log the published message for debugging
